@@ -22,3 +22,11 @@ def mostrar_informe(consola, movidos, tamanoTotal, enOrigen, enDestino, historia
             historial: lista con las descripciones de cada movimiento
     """
     consola.print("\n[bold green]INFORME FINAL[/bold green]")
+    
+    #tabla1 resumen del proceso
+    tabla_resumen = Table(title="", show_header = True, header_style = "bold blue")
+    tabla.add_column("Concepto", style="bold white")
+    tabla.add_column("Valor", justify="right")
+    
+    tabla.add_row("Archivos movidos", str(movidos))
+    
