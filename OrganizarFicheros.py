@@ -39,3 +39,14 @@ def mostrar_informe(consola, movidos, tamanoTotal, enOrigen, enDestino, historia
     tabla.add_row("ARCHIVOS DE DESTINO", str(en_destino))
     
     consola.print(tabla)    
+    
+    #tabla de movimientos
+    consola.print("\n[bold pink]MOVIMIENTOS REALIZADOS[/bold pink]")
+    tabla_historial = Table(show_header = True, header_style = "bold blue")
+    tabla_historial.add_column("Nº", justify= "right", style="cyan")
+    tabla_historia.add_column("DETALLE DEL MOVIMIENTO", style="white")
+    
+    for i, movimiento in enumerate(historial, start=1):
+        tabla_historial.add_row(str(i), movimiento)
+    
+    consola.print(tabla_historial)
