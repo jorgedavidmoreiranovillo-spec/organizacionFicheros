@@ -24,9 +24,18 @@ def mostrar_informe(consola, movidos, tamanoTotal, enOrigen, enDestino, historia
     consola.print("\n[bold green]INFORME FINAL[/bold green]")
     
     #tabla1 resumen del proceso
-    tabla_resumen = Table(title="", show_header = True, header_style = "bold blue")
-    tabla.add_column("Concepto", style="bold white")
-    tabla.add_column("Valor", justify="right")
+    tabla_resumen = Table( show_header = True, header_style = "bold blue")
+    tabla.add_column("CONCEPTO", style="bold white")
+    tabla.add_column("VALOR", justify="right")
     
     tabla.add_row("Archivos movidos", str(movidos))
     
+    
+    if en_origen ==0: 
+        estilo_origen = "bold green"
+    else:
+        "bold red" 
+    tabla.add_row("ARCHIVOS QUE QUEDAN EN ORIGEN", f"[{estilo_origen}]{en_origen}[/estilo_origen]")
+    tabla.add_row("ARCHIVOS DE DESTINO", str(en_destino))
+    
+    consola.print(tabla)    
