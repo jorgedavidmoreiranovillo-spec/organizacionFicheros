@@ -90,4 +90,10 @@ def clasificarArchivo (rutaOrigen, nombreArchivo, rutaDestino, historial):
     os.makedirs(subcarpeta, exist_ok=True)
     nombreLibre = nombreDisponible (subcarpeta, nombreArchivo)
 
-    
+    origenC= os.path.join(rutaOrigen, nombreDisponible)
+    destinoC= os.path.join(subcarpeta, nombreLibre)
+    #mover el archivo fisicamente
+    shutil.move(origenC, destinoC)
+
+    #modificacion del objeto original
+    historial.append(f"{origenC} -> {subcarpeta}/ {nombreLibre}")
