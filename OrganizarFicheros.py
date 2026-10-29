@@ -50,3 +50,15 @@ def mostrar_informe(consola, movidos, tamanoTotal, enOrigen, enDestino, historia
         tabla_historial.add_row(str(i), movimiento)
     
     consola.print(tabla_historial)
+
+    #funciones basicas de calculo y manejo de datos
+
+def obtenerExtension (nombreArchivo):
+    """
+    devuelve la extension de un archivo en minuscuulas y sin el punto.
+    si no existe extension te dice 'sin_extension'
+    """
+    _, ext = os.path.splitext(nombreArchivo)
+    if not ext:
+        return"sin_extension"
+    return ext[1:].lower()
