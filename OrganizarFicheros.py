@@ -54,24 +54,23 @@ def mostrar_informe(consola, movidos, tamanoTotal, enOrigen, enDestino, historia
     #funciones basicas de calculo y manejo de datos
 
 def obtenerExtension (nombreArchivo):
-    """
-    devuelve la extension de un archivo en minuscuulas y sin el punto.
-    si no existe extension te dice 'sin_extension'
-    """
     _, ext = os.path.splitext(nombreArchivo)
     if not ext:
         return"sin_extension"
     return ext[1:].lower()
+    """
+    devuelve la extension de un archivo en minuscuulas y sin el punto.
+    si no existe extension te dice 'sin_extension'
+    """
 
 def comprobar(rutaA, rutaB):
-    """mira si una ruta esta dentro de otra o si son iguales"""
     asb_a =os.path.abspath(rutaA)+ os.sep
     asb_b =os.path.abspath(rutaB)+ os.sep
 
     return abs_a.startwith(abs_b) or asb_b.startwith(abs_a)
+    """mira si una ruta esta dentro de otra o si son iguales"""
 
 def nombreDisponible(rutaDestino, nombreArchivo):
-    """busca un nombre libre si el archivo ya exsiste"""
     nombreBase, extension = os.path.splitext(nombreArchivo)
     candidato = nombreArchivo
     contador = 1
@@ -80,3 +79,15 @@ def nombreDisponible(rutaDestino, nombreArchivo):
         candidato = f"{nombreBase}_{contador}{extension}"
         contador += 1
     return candidato
+    """busca un nombre libre si el archivo ya exsiste"""
+
+def clasificarArchivo (rutaOrigen, nombreArchivo, rutaDestino, historial):
+    """mueve un archivo a su subcarpeta y agrega un registro a una lista 'historial'"""
+
+    ext = obtenerExtension(nombreArchivo)
+    subcarpeta = os.path.join(rutaDestino, ext)
+
+    os.makedirs(subcarpeta, exist_ok=True)
+    nombreLibre = nombreDisponible (subcarpeta, nombreArchivo)
+
+    
