@@ -62,3 +62,10 @@ def obtenerExtension (nombreArchivo):
     if not ext:
         return"sin_extension"
     return ext[1:].lower()
+
+def comprobar(rutaA, rutaB):
+    """mira si una ruta esta dentro de otra o si son iguales"""
+    asb_a =os.path.abspath(rutaA)+ os.sep
+    asb_b =os.path.abspath(rutaB)+ os.sep
+
+    return abs_a.startwith(abs_b) or asb_b.startwith(abs_a)
