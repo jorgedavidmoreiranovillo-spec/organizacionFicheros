@@ -69,3 +69,14 @@ def comprobar(rutaA, rutaB):
     asb_b =os.path.abspath(rutaB)+ os.sep
 
     return abs_a.startwith(abs_b) or asb_b.startwith(abs_a)
+
+def nombreDisponible(rutaDestino, nombreArchivo):
+    """busca un nombre libre si el archivo ya exsiste"""
+    nombreBase, extension = os.path.splitext(nombreArchivo)
+    candidato = nombreArchivo
+    contador = 1
+
+    while os.path.exists(os.path.join(rutaDestino, candidato)):
+        candidato = f"{nombreBase}_{contador}{extension}"
+        contador += 1
+    return candidato
