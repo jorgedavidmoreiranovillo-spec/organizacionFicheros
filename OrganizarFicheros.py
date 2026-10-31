@@ -82,7 +82,6 @@ def nombreDisponible(rutaDestino, nombreArchivo):
     """busca un nombre libre si el archivo ya exsiste"""
 
 def clasificarArchivo (rutaOrigen, nombreArchivo, rutaDestino, historial):
-    """mueve un archivo a su subcarpeta y agrega un registro a una lista 'historial'"""
 
     ext = obtenerExtension(nombreArchivo)
     subcarpeta = os.path.join(rutaDestino, ext)
@@ -97,3 +96,28 @@ def clasificarArchivo (rutaOrigen, nombreArchivo, rutaDestino, historial):
 
     #modificacion del objeto original
     historial.append(f"{origenC} -> {subcarpeta}/ {nombreLibre}")
+    """mueve un archivo a su subcarpeta y agrega un registro a una lista 'historial'"""
+
+#funciones recursivas
+
+def clasificarCarpetaR (rutaOrigen, rutaDestino, historial):
+    """recorre la carpeta origen y subcarpetas de manera recursiva
+
+        elementos:
+        cuando el bucle for recorre una carpeta que solo contiene archivos, los procesa y el bloque termina
+
+        cuando encuentra una subcarpeta, la funcion se autollama y le pasa uuna nueva carpeta
+    """
+
+    for elemento in os.listdir(rutaOrigen):
+        rutaElemento = os.path.join(rutaOrigen, elemento)
+
+    #caso recursivo: si es una subcarpeta se vuelve a llamar
+    if os.path.isdir(rutaElemento):
+        clasificarCarpetaR(rutaElemento, rutaDestino, historial)
+
+    #caso base: si es un archivo se clasifica
+    elif os.path.isfile(rutaElemento): 
+        clasificarArchivo(rutaOrigen, elemento, rutaDestino, historial)
+
+    
