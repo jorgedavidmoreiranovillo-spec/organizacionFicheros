@@ -101,13 +101,6 @@ def clasificarArchivo (rutaOrigen, nombreArchivo, rutaDestino, historial):
 #funciones recursivas
 
 def clasificarCarpetaR (rutaOrigen, rutaDestino, historial):
-    """recorre la carpeta origen y subcarpetas de manera recursiva
-
-        elementos:
-        cuando el bucle for recorre una carpeta que solo contiene archivos, los procesa y el bloque termina
-
-        cuando encuentra una subcarpeta, la funcion se autollama y le pasa uuna nueva carpeta
-    """
 
     for elemento in os.listdir(rutaOrigen):
         rutaElemento = os.path.join(rutaOrigen, elemento)
@@ -120,4 +113,33 @@ def clasificarCarpetaR (rutaOrigen, rutaDestino, historial):
     elif os.path.isfile(rutaElemento): 
         clasificarArchivo(rutaOrigen, elemento, rutaDestino, historial)
 
+    """recorre la carpeta origen y subcarpetas de manera recursiva
+
+        elementos:
+        cuando el bucle for recorre una carpeta que solo contiene archivos, los procesa y el bloque termina
+
+        cuando encuentra una subcarpeta, la funcion se autollama y le pasa uuna nueva carpeta
+    """
     
+def contarArchivosrecursivos(ruta):
+    if not os.path.exists(ruta) or not os.path.isdir(ruta):
+        return 0
+
+    totalArchivos = 0
+    for elemento in os.listdir (ruta):
+        rutaElemento = os.path.join(ruta, elemento)
+
+        #caso recursivo
+        if os.path.isdir(rutaElemento):
+            totalArchivos += contarArchivosrecursivos (rutaElemento)
+        
+        #caso base
+        elif os.path.isdir(rutaElemento):
+            totalArchivos += 1
+
+    return totalArchivos
+    """
+        cuenta recursivamente los archivos que hay en una ruta y sus subcarpetas
+    """
+
+                                                     
