@@ -148,9 +148,9 @@ def main():
     consola = Console()
     mostrarCabecera (consola)
 
-    #entrada de datos con rich
     origen = Prompt.ask("[bold blue]Introduce la carpeta de origen[/bold blue]")
     destino = Prompt.ask("[bold blue]Introduce la carpeta de destino[/bold blue]")
+    #entrada de datos con rich
 
 #control de errores
 
@@ -166,5 +166,7 @@ def main():
         consola.print(Panel("la ruta de origen y destino no pueden ser iguales o estar dentro una de otra", border_style = "red"))
         return
 
-    
+    historial = [] #lista para almacenar los movimientos realizados
 
+    clasificarCarpetaR(origen, destino, historial) #llamada a la funcion recursiva principal
+    consola.print ("\n[bold green]clasificación completada[/bold green]")
