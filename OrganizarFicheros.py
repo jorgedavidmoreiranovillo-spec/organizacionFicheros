@@ -174,3 +174,8 @@ def main():
     enOrigen = contarArchivosrecursivos(origen)
     enDestino = contarArchivosrecursivos(destino)
     #conteo de archivos usando la funcion recursiva
+
+    mostrarInforme(consola=consola, movidos=len(historial), enOrigen=enOrigen, enDestino=enDestino, historial=historial)
+
+    if __name__ == "__main__":
+        main()
