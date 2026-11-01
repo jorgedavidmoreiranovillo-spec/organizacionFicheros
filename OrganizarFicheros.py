@@ -170,3 +170,7 @@ def main():
 
     clasificarCarpetaR(origen, destino, historial) #llamada a la funcion recursiva principal
     consola.print ("\n[bold green]clasificación completada[/bold green]")
+
+    enOrigen = contarArchivosrecursivos(origen)
+    enDestino = contarArchivosrecursivos(destino)
+    #conteo de archivos usando la funcion recursiva
