@@ -24,19 +24,21 @@ def mostrar_informe(consola, movidos, tamanoTotal, enOrigen, enDestino, historia
     consola.print("\n[bold green]INFORME FINAL[/bold green]")
     
     #tabla1 resumen del proceso
-    tabla_resumen = Table( show_header = True, header_style = "bold blue")
+    tabla = Table( show_header = True, header_style = "bold blue")
     tabla.add_column("CONCEPTO", style="bold white")
     tabla.add_column("VALOR", justify="right")
     
     tabla.add_row("Archivos movidos", str(movidos))
+    tabla.add_row("Tamaño total", f"{tamanoTotal} bytes")
     
     
-    if en_origen ==0: 
+    if enOrigen ==0: 
         estilo_origen = "bold green"
     else:
-        "bold red" 
-    tabla.add_row("ARCHIVOS QUE QUEDAN EN ORIGEN", f"[{estilo_origen}]{en_origen}[/estilo_origen]")
-    tabla.add_row("ARCHIVOS DE DESTINO", str(en_destino))
+        estilo_origen = "bold red"
+
+    tabla.add_row("ARCHIVOS QUE QUEDAN EN ORIGEN", f"[{estilo_origen}]{enOrigen}[/estilo_origen]")
+    tabla.add_row("ARCHIVOS DE DESTINO", str(enDestino))
     
     consola.print(tabla)    
     
@@ -44,9 +46,9 @@ def mostrar_informe(consola, movidos, tamanoTotal, enOrigen, enDestino, historia
     consola.print("\n[bold pink]MOVIMIENTOS REALIZADOS[/bold pink]")
     tabla_historial = Table(show_header = True, header_style = "bold blue")
     tabla_historial.add_column("Nº", justify= "right", style="cyan")
-    tabla_historia.add_column("DETALLE DEL MOVIMIENTO", style="white")
+    tabla_historial.add_column("DETALLE DEL MOVIMIENTO", style="white")
     
-    for i, movimiento in enumerate(historial, start=1):
+    for i, movimiento in enumerate(historial, start = 1):
         tabla_historial.add_row(str(i), movimiento)
     
     consola.print(tabla_historial)
@@ -64,10 +66,10 @@ def obtenerExtension (nombreArchivo):
     """
 
 def comprobar(rutaA, rutaB):
-    asb_a =os.path.abspath(rutaA)+ os.sep
-    asb_b =os.path.abspath(rutaB)+ os.sep
+    abs_a =os.path.abspath(rutaA)+ os.sep
+    abs_b =os.path.abspath(rutaB)+ os.sep
 
-    return abs_a.startwith(abs_b) or asb_b.startwith(abs_a)
+    return abs_a.startwith(abs_b) or abs_b.startwith(abs_a)
     """mira si una ruta esta dentro de otra o si son iguales"""
 
 def nombreDisponible(rutaDestino, nombreArchivo):
@@ -134,7 +136,7 @@ def contarArchivosrecursivos(ruta):
             totalArchivos += contarArchivosrecursivos (rutaElemento)
         
         #caso base
-        elif os.path.isdir(rutaElemento):
+        elif os.path.isfile(rutaElemento):
             totalArchivos += 1
 
     return totalArchivos
@@ -146,36 +148,34 @@ def contarArchivosrecursivos(ruta):
 
 def main():
     consola = Console()
-    mostrarCabecera (consola)
+    mostrar_cabecera(consola)
 
     origen = Prompt.ask("[bold blue]Introduce la carpeta de origen[/bold blue]")
     destino = Prompt.ask("[bold blue]Introduce la carpeta de destino[/bold blue]")
-    #entrada de datos con rich
 
-#control de errores
-
+    # Control de errores
     if not os.path.exists(origen) or not os.path.isdir(origen):
-        consola.print(Panel("la ruta de origen no existe o no es una carpeta", border_style = "red"))
+        consola.print(Panel("La ruta de origen no existe o no es una carpeta", border_style="red"))
         return
 
     if os.path.exists(destino) and not os.path.isdir(destino):
-        consola.print(Panel("la ruta de destino no es una carpeta", border_style = "red"))
+        consola.print(Panel("La ruta de destino no es una carpeta", border_style="red"))
         return
 
     if comprobar(origen, destino):
-        consola.print(Panel("la ruta de origen y destino no pueden ser iguales o estar dentro una de otra", border_style = "red"))
+        consola.print(Panel("La ruta de origen y destino no pueden ser iguales o estar dentro una de otra", border_style="red"))
         return
 
-    historial = [] #lista para almacenar los movimientos realizados
+    historial = [] # Lista para almacenar los movimientos realizados
 
-    clasificarCarpetaR(origen, destino, historial) #llamada a la funcion recursiva principal
-    consola.print ("\n[bold green]clasificación completada[/bold green]")
+    clasificarCarpetaR(origen, destino, historial) # Llamada a la función recursiva principal
+    consola.print("\n[bold green]¡Clasificación completada![/bold green]")
 
     enOrigen = contarArchivosrecursivos(origen)
     enDestino = contarArchivosrecursivos(destino)
-    #conteo de archivos usando la funcion recursiva
 
-    mostrarInforme(consola=consola, movidos=len(historial), enOrigen=enOrigen, enDestino=enDestino, historial=historial)
+    mostrar_informe(consola=consola, movidos=len(historial), tamanoTotal=0, enOrigen=enOrigen, enDestino=enDestino, historial=historial)
 
-    if __name__ == "__main__":
-        main()
+
+if __name__ == "__main__":
+    main()
