@@ -152,4 +152,19 @@ def main():
     origen = Prompt.ask("[bold blue]Introduce la carpeta de origen[/bold blue]")
     destino = Prompt.ask("[bold blue]Introduce la carpeta de destino[/bold blue]")
 
-                                                     
+#control de errores
+
+    if not os.path.exists(origen) or not os.path.isdir(origen):
+        consola.print(Panel("la ruta de origen no existe o no es una carpeta", border_style = "red"))
+        return
+
+    if os.path.exists(destino) and not os.path.isdir(destino):
+        consola.print(Panel("la ruta de destino no es una carpeta", border_style = "red"))
+        return
+
+    if comprobar(origen, destino):
+        consola.print(Panel("la ruta de origen y destino no pueden ser iguales o estar dentro una de otra", border_style = "red"))
+        return
+
+    
+
