@@ -142,4 +142,14 @@ def contarArchivosrecursivos(ruta):
         cuenta recursivamente los archivos que hay en una ruta y sus subcarpetas
     """
 
+#programa como tal
+
+def main():
+    consola = Console()
+    mostrarCabecera (consola)
+
+    #entrada de datos con rich
+    origen = Prompt.ask("[bold blue]Introduce la carpeta de origen[/bold blue]")
+    destino = Prompt.ask("[bold blue]Introduce la carpeta de destino[/bold blue]")
+
                                                      
